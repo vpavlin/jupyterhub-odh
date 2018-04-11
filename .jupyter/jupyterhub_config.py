@@ -95,8 +95,15 @@ with requests.Session() as session:
 
 os.environ['OPENSHIFT_URL'] = 'https://%s' % address
 
-from oauthenticator.openshift import OpenShiftOAuthenticator
-c.JupyterHub.authenticator_class = OpenShiftOAuthenticator
+#from oauthenticator.openshift import OpenShiftOAuthenticator
+#c.JupyterHub.authenticator_class = OpenShiftOAuthenticator
+
+#Use HashAuthenticator
+
+c.JupyterHub.authenticator_class = 'hashauthenticator.HashAuthenticator'
+c.HashAuthenticator.secret_key = 'super secret key for demo at summit 12345'  # Defaults to ''
+c.HashAuthenticator.password_length = 10          # Defaults to 6
+c.HashAuthenticator.show_logins = True            # Optional, defaults to False
 
 # Override scope as oauthenticator code doesn't set it correctly.
 # Need to lodge a PR against oauthenticator to have this fixed.
