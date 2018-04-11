@@ -6,6 +6,6 @@ else
 fi
 
 for u in ${USERS}; do
-  echo -n ${u} : 
+  echo -n "${u} : "
   hashauthpw --length 10 ${u} ${HASH_AUTHETICATOR_SECRET_KEY}
 done

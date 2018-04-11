@@ -101,7 +101,7 @@ os.environ['OPENSHIFT_URL'] = 'https://%s' % address
 #Use HashAuthenticator
 
 c.JupyterHub.authenticator_class = 'hashauthenticator.HashAuthenticator'
-c.HashAuthenticator.secret_key = 'super secret key for demo at summit 12345'  # Defaults to ''
+c.HashAuthenticator.secret_key = os.environ.get("HASH_AUTHENTICATOR_SECRET_KEY")  # Defaults to ''
 c.HashAuthenticator.password_length = 10          # Defaults to 6
 c.HashAuthenticator.show_logins = True            # Optional, defaults to False
 
