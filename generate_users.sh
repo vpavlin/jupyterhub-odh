@@ -1,5 +1,7 @@
+#/bin/bash
+
 USERS=
-if [ -n "$2" ] || ! [[ "$2" =~ [0-9]* ]]; then
+if [ -n "$2" ] || ! [[ "$1" =~ [0-9][0-9]* ]]; then
   USERS=$@
 else
   USERS=`eval echo user{1..${1}}`
