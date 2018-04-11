@@ -13,5 +13,5 @@ fi
 
 for u in ${USERS}; do
   echo -n "${u} : "
-  hashauthpw --length ${HASH_AUTHENTICATOR_PASS_LEN} ${u} ${HASH_AUTHETICATOR_SECRET_KEY}
+  hashauthpw --length ${HASH_AUTHENTICATOR_PASS_LEN} ${u} ${HASH_AUTHENTICATOR_SECRET_KEY}
 done
