@@ -58,6 +58,13 @@
                 {
                     "name": "SINGLEUSER_MEM_LIMIT",
                     "value": "1Gi"
+                },
+                {
+                    "name": "HASH_AUTHENTICATOR_SECRET_KEY",
+                    "generate": "expression",
+                    "from": "[a-zA-Z0-9]{16}",
+                    "required": true
+
                 }
             ],
             "objects": [
@@ -92,7 +99,8 @@
                         "source": {
                             "type": "Git",
                             "git": {
-                                "uri": "https://github.com/aicoe/jupyterhub-ocp-oauth"
+                                "uri": "https://github.com/vpavlin/jupyterhub-ocp-oauth",
+                                "ref": "ceph-summit-demo"
                             }
                         },
                         "strategy": {
@@ -264,6 +272,10 @@
                                             {
                                                 "name": "SINGLEUSER_MEM_LIMIT",
                                                 "value": "${SINGLEUSER_MEM_LIMIT}"
+                                            },
+                                            {
+                                                "name": "HASH_AUTHENTICATOR_SECRET_KEY",
+                                                "value": "${HASH_AUTHENTICATOR_SECRET_KEY}"
                                             }
                                         ],
                                         "volumeMounts": [
