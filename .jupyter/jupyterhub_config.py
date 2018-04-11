@@ -102,7 +102,7 @@ os.environ['OPENSHIFT_URL'] = 'https://%s' % address
 
 c.JupyterHub.authenticator_class = 'hashauthenticator.HashAuthenticator'
 c.HashAuthenticator.secret_key = os.environ.get("HASH_AUTHENTICATOR_SECRET_KEY")  # Defaults to ''
-c.HashAuthenticator.password_length = os.environ.get("HASH_AUTHENTICATOR_PASS_LEN", 6)          # Defaults to 6
+c.HashAuthenticator.password_length = int(os.environ.get("HASH_AUTHENTICATOR_PASS_LEN", 6))         # Defaults to 6
 c.HashAuthenticator.show_logins = True            # Optional, defaults to False
 
 # Override scope as oauthenticator code doesn't set it correctly.
