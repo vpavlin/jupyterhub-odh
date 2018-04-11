@@ -64,7 +64,14 @@
                     "generate": "expression",
                     "from": "[a-zA-Z0-9]{16}",
                     "required": true
+<<<<<<< HEAD
 
+=======
+                },
+                {
+                    "name": "HASH_AUTHENTICATOR_PASS_LEN",
+                    "value": "6"
+>>>>>>> Add variabl for pass len
                 }
             ],
             "objects": [
@@ -276,6 +283,10 @@
                                             {
                                                 "name": "HASH_AUTHENTICATOR_SECRET_KEY",
                                                 "value": "${HASH_AUTHENTICATOR_SECRET_KEY}"
+                                            },
+                                            {
+                                                "name": "HASH_AUTHENTICATOR_PASS_LEN",
+                                                "value": "${HASH_AUTHENTICATOR_PASS_LEN}"
                                             }
                                         ],
                                         "volumeMounts": [
