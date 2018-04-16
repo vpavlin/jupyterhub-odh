@@ -75,7 +75,7 @@ c.KubeSpawner.singleuser_extra_containers = [
     ]
 
 c.KubeSpawner.user_storage_pvc_ensure = True
-c.KubeSpawner.user_storage_capacity = '2Gi'
+c.KubeSpawner.user_storage_capacity = '1Gi'
 c.KubeSpawner.pvc_name_template = '%s-nb-{username}-pvc' % c.KubeSpawner.hub_connect_ip
 c.KubeSpawner.volumes = [dict(name='data', persistentVolumeClaim=dict(claimName=c.KubeSpawner.pvc_name_template))]
 c.KubeSpawner.volume_mounts = [dict(name='data', mountPath='/opt/app-root/src')]
