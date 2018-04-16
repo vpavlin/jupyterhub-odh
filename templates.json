@@ -382,8 +382,12 @@
                             "requests": {
                                 "storage": "1Gi"
                             }
+<<<<<<< HEAD
                         },
                         "storageClassName": "${STORAGE_CLASS}"
+=======
+                        }
+>>>>>>> Remove storage class spec
                     }
                 },
                 {
