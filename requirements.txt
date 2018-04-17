@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 openshift
 <<<<<<< HEAD
 jupyterhub-kubespawner==0.9.0
@@ -5,3 +6,7 @@ git+https://github.com/vpavlin/jupyterhub-singleuser-profiles.git@12ff0db4d35f67
 =======
 jupyterhub-hashauthenticator
 >>>>>>> Add hash authenticator
+=======
+openshift==0.4.4
+jupyterhub-hashauthenticator==0.4.0
+>>>>>>> Use pre-built images

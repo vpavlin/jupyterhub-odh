@@ -98,9 +98,6 @@
                         "triggers": [
                             {
                                 "type": "ConfigChange"
-                            },
-                            {
-                                "type": "ImageChange"
                             }
                         ],
                         "source": {
@@ -114,8 +111,8 @@
                             "type": "Source",
                             "sourceStrategy": {
                                 "from": {
-                                    "kind": "ImageStreamTag",
-                                    "name": "${BUILDER_IMAGE}"
+                                    "kind": "DockerImage",
+                                    "name": "quay.io/vpavlin/ceph-demo-jupyterhub"
                                 }
                             }
                         },
