@@ -64,14 +64,10 @@
                     "generate": "expression",
                     "from": "[a-zA-Z0-9]{16}",
                     "required": true
-<<<<<<< HEAD
-
-=======
                 },
                 {
                     "name": "HASH_AUTHENTICATOR_PASS_LEN",
                     "value": "6"
->>>>>>> Add variabl for pass len
                 }
             ],
             "objects": [
@@ -379,12 +375,7 @@
                             "requests": {
                                 "storage": "1Gi"
                             }
-<<<<<<< HEAD
-                        },
-                        "storageClassName": "${STORAGE_CLASS}"
-=======
                         }
->>>>>>> Remove storage class spec
                     }
                 },
                 {
