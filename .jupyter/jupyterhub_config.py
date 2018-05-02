@@ -19,6 +19,7 @@ c.KubeSpawner.environment = {
     'SPARK_HOME': '/opt/app-root/lib/python3.6/site-packages/pyspark/',
     'PYTHONPATH': '$PYTHONPATH:/opt/app-root/lib/python3.6/site-packages/:/opt/app-root/lib/python3.6/site-packages/pyspark/python/:/opt/app-root/lib/python3.6/site-packages/pyspark/python/lib/py4j-0.8.2.1-src.zip',
     #'PYTHONSTARTUP': '/opt/app-root/lib/python3.6/site-packages/pyspark/python/pyspark/shell.py'
+    'JUPYTER_ENABLE_LAB': 'true'
 }
 
 # Work out the public server address for the OpenShift REST API. Don't
