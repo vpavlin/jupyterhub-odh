@@ -1,2 +1,2 @@
-openshift
+openshift==0.6.1
 git+https://github.com/vpavlin/jupyterhub-singleuser-profiles.git
