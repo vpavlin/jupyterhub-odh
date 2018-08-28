@@ -157,9 +157,11 @@ class OpenShiftSpawner(KubeSpawner):
 
   def _options_form_default(self):
     imagestream_list = oapi_client.list_namespaced_image_stream(namespace)
+    print(imagestream_list.items)
 
     result = []
     for i in imagestream_list.items:
+      print(i.metadata.name)
       if "-notebook" in i.metadata.name:
         name = i.metadata.name
         if not i.status.tags:
