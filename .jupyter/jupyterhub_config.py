@@ -137,12 +137,18 @@ route_list = oapi_client.list_namespaced_route(namespace)
 
 host = None
 
+# Find a route URL, prefer a route with -prod suffix
 for route in route_list.items:
     if route.metadata.name == service_name:
         host = route.spec.host
+    if route.metadata.name == "%s-prod" % service_name:
+        host = route.spec.host
+        break
 
 if not host:
     raise RuntimeError('Cannot calculate external host name for JupyterHub.')
+else:
+    print("Using %s as a callback for OpenShift Auth" % host)
 
 c.OpenShiftOAuthenticator.oauth_callback_url = 'https://%s/hub/oauth_callback' % host
 

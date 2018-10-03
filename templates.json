@@ -57,7 +57,7 @@
                 },
                 {
                     "name": "SINGLEUSER_MEM_LIMIT",
-                    "value": "1Gi"
+                    "value": "1G"
                 }
             ],
             "objects": [
@@ -92,7 +92,8 @@
                         "source": {
                             "type": "Git",
                             "git": {
-                                "uri": "https://github.com/aicoe/jupyterhub-ocp-oauth"
+                                "uri": "https://github.com/vpavlin/jupyterhub-ocp-oauth",
+                                "ref": "feature/support-prod-route"
                             }
                         },
                         "strategy": {
