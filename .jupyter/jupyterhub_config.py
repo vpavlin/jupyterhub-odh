@@ -121,6 +121,9 @@ with open(os.path.join(service_account_path, 'token')) as fp:
     client_secret = fp.read().strip()
 
 c.OpenShiftOAuthenticator.client_secret = client_secret
+c.Authenticator.enable_auth_state = True
+
+c.CryptKeeper.keys = [ client_secret.encode('utf-8') ]
 
 # Work out hostname for the exposed route of the JupyterHub server. This
 # is tricky as we need to use the REST API to query it.
@@ -287,6 +290,10 @@ class OpenShiftSpawner(KubeSpawner):
 def apply_pod_profile(spawner, pod):
   spawner.single_user_profiles.load_profiles(username=spawner.user.name)
   profile = spawner.single_user_profiles.get_merged_profile(spawner.image_spec, user=spawner.user.name, size=spawner.deployment_size)
+
+  auth_state = yield spawner.user.get_auth_state()
+  pod.spec.containers[0].env.append(dict(name='OPENSHIFT_TOKEN', value=auth_state['access_token']))
+
   return SingleuserProfiles.apply_pod_profile(spawner, pod, profile)
 
 def setup_environment(spawner):
