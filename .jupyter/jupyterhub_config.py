@@ -2,7 +2,7 @@ c.KubeSpawner.http_timeout = 60 * 10 #Images are big, take time to pull, make it
 c.KubeSpawner.start_timeout = 60 * 10 #Images are big, take time to pull, make it 10 mins for now because of storage issue
 
 import os
-
+import sys
 import json
 import requests
 
@@ -23,6 +23,11 @@ c.JupyterHub.services = [
                                 'name': 'public',
                                 'command': ['bash', '-c', 'jupyter_publish_service'],
                                 'environment': public_service_dict
+                            },
+                            {
+                                'name': 'jsp-api',
+                                'admin': True,
+                                'command': [sys.executable, '/opt/app-root/lib64/python3.6/site-packages/api/app.py'],
                             }
                         ]
 c.KubeSpawner.singleuser_extra_containers = [
