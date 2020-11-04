@@ -2,7 +2,7 @@
 
 /usr/libexec/s2i/assemble
 
-git clone https://github.com/opendatahub.io/jupyterhub-singleuser-profiles.git /tmp/src/jsp
+git clone -b feature/UI https://github.com/mroman-redhat/jupyterhub-singleuser-profiles.git /tmp/src/jsp
 
 cd /tmp/src/jsp/ui
 
@@ -17,3 +17,7 @@ cd /tmp/src/jsp/ui/templates/
 yes | cp -rf spawn.html page.html /opt/app-root/share/jupyterhub/templates/
 cd /tmp/src/jsp/ui/styles/
 yes | cp -rf style.less /opt/app-root/share/jupyterhub/static/less
+
+curl -L -o /opt/app-root/lib/python3.6/site-packages/jupyterhub/services/auth.py https://raw.githubusercontent.com/vpavlin/jupyterhub/bug/remove-auth-args/jupyterhub/services/auth.py
+
+fix-permissions /opt/app-root
