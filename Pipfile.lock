@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "df46082ba786a81b1ccb20ca0f59cea1f7d92d5cb7213f9971d0fecf2680c860"
+            "sha256": "b1acc790088d760cd07d68a810b34e8bd7b61b4bca03a10ff749e409c7acffb9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -318,7 +318,6 @@
                 "sha256:1abc70ee6c8af8d1851c97e2ab29861f3ffcd6031332aaadab6a6cbc5910b112",
                 "sha256:4d24e064db10c1d070696c7a3dee55739a24db6990051aa296e708910d1b14b9"
             ],
-            "index": "pypi",
             "version": "==1.2.1"
         },
         "jupyterhub-singleuser-profile": {
