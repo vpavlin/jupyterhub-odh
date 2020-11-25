@@ -7,8 +7,8 @@ verify_ssl = true
 
 [packages]
 openshift = "==0.11.2"
-jupyterhub-singleuser-profile = {ref = "feature/UI",git = "https://github.com/mroman-redhat/jupyterhub-singleuser-profiles.git",editable = true}
-jupyter-publish-extension = {ref = "7cbf34e494fd9a0a79e9cd9a8c1d48a6775b9f49",git = "https://github.com/vpavlin/jupyter-publish-extension.git",editable = true}
+jupyterhub-singleuser-profiles = {ref = "bug/dropdown-closing",git = "https://github.com/mroman-redhat/jupyterhub-singleuser-profiles.git",editable = true}
+publish-service = {ref = "7cbf34e494fd9a0a79e9cd9a8c1d48a6775b9f49",git = "https://github.com/vpavlin/jupyter-publish-extension.git",editable = true}
 
 [requires]
 python_version = "3.6"
