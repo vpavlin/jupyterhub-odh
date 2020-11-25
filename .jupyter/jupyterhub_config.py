@@ -33,7 +33,7 @@ c.JupyterHub.services = [
                                 'name': 'jsp-api',
                                 'url': 'http://127.0.0.1:8181',
                                 'admin': True,
-                                'command': [sys.executable, '/opt/app-root/src/jupyterhub-singleuser-profile/jupyterhub_singleuser_profiles_api/app.py'],
+                                'command': ['jupyterhub-singleuser-profiles-api'],
                                 'environment': jsp_api_dict
                             }
                         ]
