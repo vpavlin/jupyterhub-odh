@@ -5,6 +5,7 @@ import os
 import sys
 
 import json
+import yaml
 import requests
 
 c.JupyterHub.log_level = 'DEBUG'
@@ -90,40 +91,8 @@ c.KubeSpawner.singleuser_extra_containers = [
     ]
 
 
-# Work out the public server address for the OpenShift REST API. Don't
-# know how to get this via the REST API client so do a raw request to
-# get it. Make sure request is done in a session so connection is closed
-# and later calls against REST API don't attempt to reuse it. This is
-# just to avoid potential for any problems with connection reuse.
-
-# Enable the OpenShift authenticator.
-
-from oauthenticator.openshift import OpenShiftOAuthenticator
-c.JupyterHub.authenticator_class = OpenShiftOAuthenticator
-
-# Override scope as oauthenticator code doesn't set it correctly.
-# Need to lodge a PR against oauthenticator to have this fixed.
-
-#OpenShiftOAuthenticator.scope = ['user:info']
-
-# Setup authenticator configuration using details from environment.
 
 service_name = os.environ['JUPYTERHUB_SERVICE_NAME']
-
-service_account_name = '%s-hub' %  service_name
-service_account_path = '/var/run/secrets/kubernetes.io/serviceaccount'
-
-with open(os.path.join(service_account_path, 'namespace')) as fp:
-    namespace = fp.read().strip()
-
-client_id = 'system:serviceaccount:%s:%s' % (namespace, service_account_name)
-
-c.OpenShiftOAuthenticator.client_id = client_id
-
-with open(os.path.join(service_account_path, 'token')) as fp:
-    client_secret = fp.read().strip()
-
-c.OpenShiftOAuthenticator.client_secret = client_secret
 
 # Work out hostname for the exposed route of the JupyterHub server. This
 # is tricky as we need to use the REST API to query it.
@@ -155,7 +124,45 @@ for route in route_list.items:
 if not host:
     raise RuntimeError('Cannot calculate external host name for JupyterHub.')
 
+# Work out the public server address for the OpenShift REST API. Don't
+# know how to get this via the REST API client so do a raw request to
+# get it. Make sure request is done in a session so connection is closed
+# and later calls against REST API don't attempt to reuse it. This is
+# just to avoid potential for any problems with connection reuse.
+
+# Enable the OpenShift authenticator.
+
+from oauthenticator.openshift import OpenShiftOAuthenticator
+c.JupyterHub.authenticator_class = OpenShiftOAuthenticator
+
+# Override scope as oauthenticator code doesn't set it correctly.
+# Need to lodge a PR against oauthenticator to have this fixed.
+
+OpenShiftOAuthenticator.scope = ['user:full']
+
+# Setup authenticator configuration using details from environment.
+
+
+service_account_name = '%s-hub' %  service_name
+service_account_path = '/var/run/secrets/kubernetes.io/serviceaccount'
+
+with open(os.path.join(service_account_path, 'namespace')) as fp:
+    namespace = fp.read().strip()
+
+
+client_id = 'demo' #'system:serviceaccount:%s:%s' % (namespace, service_account_name)
+
+c.OpenShiftOAuthenticator.client_id = client_id
+
+with open(os.path.join(service_account_path, 'token')) as fp:
+    client_secret = fp.read().strip()
+
+c.OpenShiftOAuthenticator.client_secret = 'cg9ndOmrG9j3eTTcPPCBttEh4EAb66uE' #client_secret
+
+
 c.OpenShiftOAuthenticator.oauth_callback_url = 'https://%s/hub/oauth_callback' % host
+c.Authenticator.enable_auth_state = True
+c.CryptKeeper.keys = [ c.OpenShiftOAuthenticator.client_secret.encode('utf-8') ]
 
 from html.parser import HTMLParser
 
@@ -230,16 +237,25 @@ class OpenShiftSpawner(KubeSpawner):
     return options
 
 
+from tornado import gen
 
+@gen.coroutine
 def apply_pod_profile(spawner, pod):
+  auth_state = yield spawner.user.get_auth_state()
+  access_token = auth_state['access_token']
+  print("Access Token: %s" % access_token)
+  print("auth state: %s" % auth_state)
+
   spawner.single_user_profiles.load_profiles(username=spawner.user.name)
   profile = spawner.single_user_profiles.get_merged_profile(spawner.image, user=spawner.user.name, size=spawner.deployment_size)
-  return SingleuserProfiles.apply_pod_profile(spawner, pod, profile, default_mount_path)
+  return SingleuserProfiles.apply_pod_profile(spawner, pod, profile)
 
+#@gen.coroutine
 def setup_environment(spawner):
     spawner.single_user_profiles.load_profiles(username=spawner.user.name)
     spawner.single_user_profiles.setup_services(spawner, spawner.image, spawner.user.name)
 
+#@gen.coroutine
 def clean_environment(spawner):
     spawner.single_user_profiles.clean_services(spawner, spawner.user.name)
 
