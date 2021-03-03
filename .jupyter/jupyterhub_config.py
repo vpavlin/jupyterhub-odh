@@ -125,8 +125,8 @@ with open(os.path.join(service_account_path, 'token')) as fp:
 
 c.OpenShiftOAuthenticator.client_secret = client_secret
 
-allowed_groups = os.environ.get('JUPYTERHUB_ALLOWED_GROUPS')
-admin_groups = os.environ.get('JUPYTERHUB_ADMIN_GROUPS')
+allowed_groups = os.environ.get('JUPYTERHUB_ALLOWED_GROUPS', '')
+admin_groups = os.environ.get('JUPYTERHUB_ADMIN_GROUPS', '')
 if allowed_groups:
     c.OpenShiftOAuthenticator.allowed_groups = set(allowed_groups.split(','))
 if admin_groups:
